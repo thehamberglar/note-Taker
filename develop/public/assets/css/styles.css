@@ -4,3 +4,28 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.save-note {
+    display: none;
+  }
+
+  .note-text, .note-title {
+    color: black;
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+
+  .note-text {
+    resize: none;
+    height: 80%;
+    padding-top: 15px;
+  }
+
+  .note-title {
+    height: 50px;
+    margin-top: 13px;
+    font-size: 4rem;
+  }
+
+
