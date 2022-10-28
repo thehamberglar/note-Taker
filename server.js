@@ -1,36 +1,36 @@
 const fs = require('fs');
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const { notes } = require("./db/db.json");
+const { notes } = require(".//db/db.json");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-//Generate Unique ID
-const generateUniqueId = require('generate-unique-id');
+// Generate Unique ID
+var uniqueId = require('uniqid');
 
 //Create New Note
 function createNewNote(body, notesArray) {
     const note = body;
     notesArray.push(note);
     fs.writeFileSync(
-      path.join(__dirname, './db/db.json'),
+      path.join(__dirname, '../db/db.json'),
       JSON.stringify({ notes: notesArray }, null, 2)
     );
     return note;
   };  
 
-//Routes
+// Routes
 app.get("/notes", (req,res)=>{
-  res.sendFile(path.join(__dirname, "public/notes.html"));
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
 });
 app.get("/api/notes", (req,res)=>{
 
-  readFileAsync("./db/db.json", "utf8")
+  fs.readFileAsync("db/db.json")
   .then((result, err)=>{
       if(err) console.log(err);       
       return res.json(JSON.parse(result));       
@@ -38,11 +38,11 @@ app.get("/api/notes", (req,res)=>{
 });
 
 app.get("*", (req,res)=>{
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 app.post('/api/notes', (req, res) => {
-  req.body.id = generateUniqueId();
+  req.body.id = uniqueId();
   const note = createNewNote(req.body, notes);
   res.json(note);
 });
