@@ -1,1 +1,6 @@
-[{"title":"example","text":"11","id":1}]
+[
+    {
+        "title":"Note Taker",
+        "text":"Test text"
+    }
+]
